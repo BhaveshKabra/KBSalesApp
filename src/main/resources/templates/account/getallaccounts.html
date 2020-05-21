@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Show All Accounts</title>
+<link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet"
+	media="screen"></link>
+<script th:src="@{~/js/jquery.min.js}"></script>
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+<script th:src="@{~/js/popper.min.js}"></script>
+<style type="text/css">
+body {
+	padding-top: 55px;
+}
+
+#content {
+	margin: 5px;
+}
+</style>
+</head>
+
+
+<body>
+	<div th:replace="fragments/navbar :: NavbarThymleaf"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10" id="content">
+				<table
+					class="table table-dark table-striped table-bordered .table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>City</th>
+							<th>FSSAI</th>
+							<th>GSTNO</th>
+						</tr>
+						</thead>
+						<tr th:each="account, iStat:  ${accountlist}">
+						<td><a th:href="@{'/accounts/view/'+${account.name}} "> <span
+								th:text="${account.name}"></span>
+						</a></td>
+						<td th:text="${account.city}" />
+						<td th:text="${account.fssai}" />
+						<td th:text="${account.gstno}" />
+						</tr>
+				</table>
+			</div>
+		</div>
+	</div>			
+</body>
+</html>

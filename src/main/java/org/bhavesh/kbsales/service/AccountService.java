@@ -48,4 +48,8 @@ public class AccountService {
 		}
 		return listAccount;
 	}
+	public void insertAccount(Account account)
+	{
+		accountrepo.save(account);
+	}
 }

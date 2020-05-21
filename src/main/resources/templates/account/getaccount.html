@@ -3,7 +3,7 @@
 	xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Show All Accounts</title>
+<title>${account.name} Accounts</title>
 <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet"
 	media="screen"></link>
 <script th:src="@{~/js/jquery.min.js}"></script>
@@ -37,13 +37,11 @@ body {
 							<th>GSTNO</th>
 						</tr>
 						</thead>
-						<tr th:each="account, iStat:  ${accountlist}">
-						<td><a th:href="@{'/account/'+${account.name}} "> <span
-								th:text="${account.name}"></span>
-						</a></td>
-						<td th:text="${account.city}" />
-						<td th:text="${account.fssai}" />
-						<td th:text="${account.gstno}" />
+						<tr >
+						<td><span th:text="${account.name}"></span></td>
+						<td><span th:text="${account.city}"></span></td>
+						<td><span th:text="${account.fssai}"></span></td>
+						<td><span th:text="${account.gstno}"></span></td>
 						</tr>
 				</table>
 			</div>
