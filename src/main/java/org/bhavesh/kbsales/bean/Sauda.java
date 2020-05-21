@@ -3,6 +3,8 @@ package org.bhavesh.kbsales.bean;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -18,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Sauda {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long saudaId;
 	private Date saudaDate;
 	private Date saudaStartDate;

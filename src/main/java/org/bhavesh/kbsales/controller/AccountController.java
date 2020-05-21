@@ -1,5 +1,7 @@
 package org.bhavesh.kbsales.controller;
 
+import javax.validation.Valid;
+
 import org.bhavesh.kbsales.bean.Account;
 import org.bhavesh.kbsales.service.AccountService;
 import org.springframework.stereotype.Controller;
@@ -28,23 +30,23 @@ public class AccountController {
 	}
 	
 	@GetMapping("/accounts/insert")
-	public String getinsertPage()
+	public String getinsertPage(Account account)
 	{
 		return "account/insertnewaccounts";
 	}
 	
 	@PostMapping("/accounts/insert")
-	public String insertAccounts(@ModelAttribute("account") Account account,Model model,BindingResult result)
+	public String insertAccounts(@Valid @ModelAttribute("account") Account account,BindingResult result,Model model)
 	{
 		if(result.hasErrors())
 		{
 			model.addAttribute("error",result.getAllErrors());
-			return "/accounts/insert";
+			return "account/insertnewaccounts";
 		}
 		else
 		{
 			accountService.insertAccount(account);
-			return "redirect:";
+			return "redirect:account/";
 		}
 	}
 	
