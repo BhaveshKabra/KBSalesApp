@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled class file
 *.class
 
@@ -9,6 +10,15 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
 # Package Files #
 *.jar
@@ -26,6 +36,9 @@ hs_err_pid*
 .classpath
 .project
 .factorypath
+
+### VS Code ###
+.vscode/
 
 #folders
 target
