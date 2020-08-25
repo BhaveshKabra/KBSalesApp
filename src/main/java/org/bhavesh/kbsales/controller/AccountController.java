@@ -2,7 +2,7 @@ package org.bhavesh.kbsales.controller;
 
 import javax.validation.Valid;
 
-import org.bhavesh.kbsales.bean.Account;
+import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
 import org.bhavesh.kbsales.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AccountController {
 	
 	AccountService accountService;
-	
 	public AccountController(AccountService accountService) {
 		this.accountService=accountService;
 	}
@@ -30,13 +29,21 @@ public class AccountController {
 	}
 	
 	@GetMapping("/accounts/insert")
-	public String getinsertPage(Account account)
+	public String getinsertPage(AccountPOJO accountpojo)
 	{
 		return "account/insertnewaccounts";
 	}
 	
+	@GetMapping("/accounts/{accountid}/update")
+	public String showupdatepage(@PathVariable("accountid")String accountid,Model model)
+	{
+		model.addAttribute("pageTitle","Update "+accountid+" Details");
+		model.addAttribute("account",accountService.getAccount(accountid));
+		return "account/updateaccount";
+	}
+	
 	@PostMapping("/accounts/insert")
-	public String insertAccounts(@Valid @ModelAttribute("account") Account account,BindingResult result,Model model)
+	public String insertAccounts(@Valid @ModelAttribute("account") AccountPOJO accountpojo,BindingResult result,Model model)
 	{
 		if(result.hasErrors())
 		{
@@ -45,14 +52,30 @@ public class AccountController {
 		}
 		else
 		{
-			accountService.insertAccount(account);
-			return "redirect:account/";
+			accountService.insertAccount(accountpojo);
+			return "redirect:";
 		}
 	}
 	
-	@RequestMapping("/accounts/view/{accountid}")
+	@PostMapping("/accounts/{accountid}/update/")
+	public String updateAccounts(@Valid @ModelAttribute("account") AccountPOJO accountpojo,BindingResult result,Model model)
+	{
+		if(result.hasErrors())
+		{
+			model.addAttribute("error",result.getAllErrors());
+			return "account/updateaccount";
+		}
+		else
+		{
+			accountService.insertAccount(accountpojo);
+			return "redirect:/accounts/"+accountpojo.getName()+"/";
+		}
+	}
+	
+	@RequestMapping("/accounts/{accountid}")
 	public String getAllAccounts(@PathVariable("accountid")String accountid,Model model)
 	{
+		model.addAttribute("pageTitle",accountid+" Details");
 		model.addAttribute("account",accountService.getAccount(accountid));
 		return "account/getaccount";
 	}

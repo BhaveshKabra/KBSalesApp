@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bhavesh.kbsales.bean.Account;
+import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
+import org.bhavesh.kbsales.mapper.AccountMapper;
 import org.bhavesh.kbsales.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,11 @@ import org.springframework.stereotype.Service;
 public class AccountService {
 
 	AccountRepository accountrepo;
-	
-	public AccountService(AccountRepository accountrepo)
+	AccountMapper mapper;
+	public AccountService(AccountRepository accountrepo,AccountMapper mapper)
 	{
 		this.accountrepo=accountrepo;
+		this.mapper=mapper;
 	}
 	
 	public Account getAccount(String accountname)
@@ -27,29 +30,29 @@ public class AccountService {
 			return null;
 	}
 	
-	public List<Account> getAllAccount()
+	public List<AccountPOJO> getAllAccount()
 	{
-		ArrayList<Account> listAccount= new ArrayList<Account>();
+		ArrayList<AccountPOJO> listAccountpojo= new ArrayList<AccountPOJO>();
 		for(Account account: accountrepo.findAll())
 		{
-			listAccount.add(account);
+			listAccountpojo.add(mapper.accounttoAccountPojo(account));
 		}
-		return listAccount;
+		return listAccountpojo;
 	}
-	public List<Account> getAccountbyCity(String city)
+	public List<AccountPOJO> getAccountbyCity(String city)
 	{
-		ArrayList<Account> listAccount= new ArrayList<Account>();
+		ArrayList<AccountPOJO> listAccountpojo= new ArrayList<AccountPOJO>();
 		for(Account account: accountrepo.findAll())
 		{
 			if(city.equals(account.getCity()))
 			{
-				listAccount.add(account);
+				listAccountpojo.add(mapper.accounttoAccountPojo(account));
 			}
 		}
-		return listAccount;
+		return listAccountpojo;
 	}
-	public void insertAccount(Account account)
+	public void insertAccount(AccountPOJO accountpojo)
 	{
-		accountrepo.save(account);
+		accountrepo.save(mapper.accountPOJOtoAccount(accountpojo));
 	}
 }
