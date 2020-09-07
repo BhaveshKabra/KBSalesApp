@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AccountController {
 	
 	AccountService accountService;
+	public static final String ACCOUNT="account";
 	public AccountController(AccountService accountService) {
 		this.accountService=accountService;
 	}
@@ -29,8 +30,9 @@ public class AccountController {
 	}
 	
 	@GetMapping("/accounts/insert")
-	public String getinsertPage(AccountPOJO accountpojo)
+	public String getinsertPage(Model model)
 	{
+		model.addAttribute(ACCOUNT, new AccountPOJO());
 		return "account/insertnewaccounts";
 	}
 	
@@ -38,12 +40,12 @@ public class AccountController {
 	public String showupdatepage(@PathVariable("accountid")String accountid,Model model)
 	{
 		model.addAttribute("pageTitle","Update "+accountid+" Details");
-		model.addAttribute("account",accountService.getAccount(accountid));
+		model.addAttribute(ACCOUNT,accountService.getAccount(accountid));
 		return "account/updateaccount";
 	}
 	
 	@PostMapping("/accounts/insert")
-	public String insertAccounts(@Valid @ModelAttribute("account") AccountPOJO accountpojo,BindingResult result,Model model)
+	public String insertAccounts(@Valid @ModelAttribute(ACCOUNT) AccountPOJO accountpojo,BindingResult result,Model model)
 	{
 		if(result.hasErrors())
 		{
@@ -76,7 +78,7 @@ public class AccountController {
 	public String getAllAccounts(@PathVariable("accountid")String accountid,Model model)
 	{
 		model.addAttribute("pageTitle",accountid+" Details");
-		model.addAttribute("account",accountService.getAccount(accountid));
+		model.addAttribute(ACCOUNT,accountService.getAccount(accountid));
 		return "account/getaccount";
 	}
 }

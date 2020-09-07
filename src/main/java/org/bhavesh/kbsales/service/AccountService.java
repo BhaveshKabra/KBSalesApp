@@ -11,10 +11,10 @@ import org.bhavesh.kbsales.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountService {
+public class AccountService{
 
-	AccountRepository accountrepo;
-	AccountMapper mapper;
+	private AccountRepository accountrepo;
+	private AccountMapper mapper;
 	public AccountService(AccountRepository accountrepo,AccountMapper mapper)
 	{
 		this.accountrepo=accountrepo;
@@ -38,6 +38,16 @@ public class AccountService {
 			listAccountpojo.add(mapper.accounttoAccountPojo(account));
 		}
 		return listAccountpojo;
+	}
+	
+	public List<String> getAllAccountsName()
+	{
+		ArrayList<String> listAccountNames= new ArrayList<String>();
+		for(String str: accountrepo.getAllAccountsName())
+		{
+			listAccountNames.add(str);
+		}
+		return listAccountNames;
 	}
 	public List<AccountPOJO> getAccountbyCity(String city)
 	{

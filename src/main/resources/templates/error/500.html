@@ -13,19 +13,22 @@
 <script src="/webjars/popper.js/2.0.2/umd/popper.min.js"></script>
 </head>
 <body>
-	<div class="container">
-		<!-- Jumbotron -->
-		<div class="jumbotron">
-			<h1>
-				<span class="glyphicon glyphicon-fire red"></span> 500 Server Error
-			</h1>
-			<p class="lead">
-				The web server is returning an internal error for <em><span
-					id="display-domain"></span></em>.
-			</p>
-			<a href="javascript:document.location.reload(true);"
-				class="btn btn-default btn-lg text-center"><span class="green">Try
-					This Page Again</span></a>
+	<div th:replace="fragments/navbar :: NavbarThymleaf"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10" id="content">
+				<div class="jumbotron">
+					<h1>
+						<span class="glyphicon glyphicon-fire red"></span> 500 Server Error
+					</h1>
+					<p class="lead">
+						The web server is returning an internal error for <em>
+					<span id="display-domain"></span></em>.
+					</p>
+					<a href="javascript:document.location.reload(true);"
+						class="btn btn-default btn-lg text-center"><span class="green">Try
+						This Page Again</span></a>
+				</div>
 		</div>
 	</div>
 	<div class="container">
@@ -48,6 +51,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

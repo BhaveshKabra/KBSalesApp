@@ -10,13 +10,16 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -24,15 +27,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
+@EqualsAndHashCode
 public class Account {
 	@Id
 	@NotBlank
 	@NotNull
-	@Size(min = 2,max=255)
+	@Length(min = 2,max=255)
 	private String name;
 	@NotNull
 	@NotBlank
-	@Size(min = 2,max=255)
+	@Length(min = 2,max=255)
 	private String city;
 	@Column(length = 15)
 	private Integer gstno;

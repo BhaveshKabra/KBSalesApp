@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bhavesh.kbsales.bean.Sauda;
+import org.bhavesh.kbsales.bean.pojo.SaudaPOJO;
 import org.bhavesh.kbsales.mapper.SaudaMapper;
 import org.bhavesh.kbsales.repository.SaudaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SaudaService {
+public class SaudaService{
 
 	SaudaRepository saudarepo;
 	SaudaMapper mapper;
@@ -31,17 +32,21 @@ public class SaudaService {
 	}
 	public List<Sauda> getSaudabyDate(Date saudaDate)
 	{
-		return saudarepo.findBySaudaDate(saudaDate);
+		return saudarepo.findByCreatedDate(saudaDate);
 	}
-	/*
 	public List<Sauda> getSaudabyRange(Date saudastart, Date saudaend)
 	{
 		return saudarepo.findBySaudaRange(saudastart, saudaend);
 	}
-	*/
+	
 	public List<Sauda> getSaudabyClosingDate()
 	{
 		return saudarepo.findBySaudaEndDate(Calendar.getInstance().getTime());
+	}
+	
+	public void insertSauda(SaudaPOJO saudaPOJO)
+	{
+		saudarepo.save(mapper.saudaPOJOtoSauda(saudaPOJO));
 	}
 	
 }

@@ -1,8 +1,7 @@
 package org.bhavesh.kbsales.bean.pojo;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -15,17 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AccountPOJO {
-	@NotBlank
+public class UserPOJO {
 	@NotNull
-	@Length(min = 2,max=255)
+	@NotEmpty
+	@Length(min = 3,max=30)
 	private String name;
+	private String position;
 	@NotNull
-	@NotBlank
-	@Length(min = 2,max=255)
-	private String city;
-	@PositiveOrZero
-	private Integer gstno;
-	@PositiveOrZero
-	private Integer fssai;
+	@Length(min = 5,max=15)
+	private String password;
 }
