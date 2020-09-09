@@ -146,7 +146,6 @@ public class SaudaController {
 	@GetMapping("/sauda/id/{saudaid}/update")
 	public String getupdateSaudaPage(@PathVariable("saudaid") long saudaid, Model model)
 	{
-		model.addAttribute("saudaid",saudaid);
 		model.addAttribute(SAUDAATTRIBUTE,saudaService.getSaudabyid(saudaid));
 		return "sauda/update";
 	}
