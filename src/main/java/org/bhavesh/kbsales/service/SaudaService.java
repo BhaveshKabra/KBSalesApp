@@ -2,7 +2,6 @@ package org.bhavesh.kbsales.service;
 
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class SaudaService{
 	{
 		return mapper.saudalisttoSaudaPOJOlist(saudarepo.findByCreatedDate(now));
 	}
-	public List<SaudaPOJO> getSaudabyStartDateandEndDateRange(Date saudastart, Date saudaend)
+	public List<SaudaPOJO> getSaudabyStartDateandEndDateRange(LocalDate saudastart, LocalDate saudaend)
 	{
 		return mapper.saudalisttoSaudaPOJOlist(saudarepo.findBySaudaStartDateAfterAndSaudaEndDateBefore(saudastart, saudaend));
 	}
@@ -52,14 +51,14 @@ public class SaudaService{
 		saudarepo.save(mapper.saudaPOJOtoSauda(saudaPOJO));
 	}
 	
-	public List<SaudaPOJO> getSaudaByCreatedDatebetween(Date start,Date end)
+	public List<SaudaPOJO> getSaudaByCreatedDatebetween(LocalDate start,LocalDate end)
 	{
 		return mapper.saudalisttoSaudaPOJOlist(saudarepo.findBySaudaStartDateBetween(start,end));
 	}
 
-	public List<SaudaPOJO>  getSaudabyAccountwithRange(Date startDate, Date endDate, AccountPOJO account) {
+	public List<SaudaPOJO>  getSaudabyAccountwithRange(LocalDate startDate, LocalDate endDate, AccountPOJO account) {
 		return getSaudaByCreatedDatebetween(startDate,endDate).stream()
-					.filter(sauda -> sauda.getBuyerAccount()==account || sauda.getSellerAccount()==account).collect(Collectors.toList());
+					.filter(sauda -> sauda.getBuyerAccount().equals(account) || sauda.getSellerAccount().equals(account)).collect(Collectors.toList());
 	}
 	public void updateSauda(Long id,SaudaPOJO saudaPOJO)
 	{

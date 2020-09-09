@@ -24,15 +24,15 @@ body {
 	<div class="row">
 	<div th:replace="fragments/navbar :: NavbarThymleaf"></div>
 		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" id="content">
-		<form method ="post" action="/sauda/dates" class="form-inline mb-4">
+		<form method ="post" action="/sauda/partyanddate" class="form-inline mb-4">
 			<div> 
-				<label for="saudaStartDate" class="mr-auto">Sauda Start Date</label> 
+				<label for="saudaStartDate" class="mr-auto">Sauda Start Date starting from</label> 
 				<input class="mr-3"
 						type="date" id="saudaStartDate"
 						name="saudaStartDate">
 			</div>
 			<div> 
-				<label for="saudaEndDate" class="mr-auto">Sauda End Date</label> 
+				<label for="saudaEndDate" class="mr-auto">Sauda Start Date ending to</label> 
 				<input
 						class="mr-3" type="date" id="saudaEndDate"
 						name="saudaEndDate">
@@ -69,9 +69,9 @@ body {
 					</tr>
 				</thead>
 				<tr th:each=" sauda : ${saudaList}">
-					<td><a th:href="@{'/sauda/'+${sauda.saudaId}}"><span th:text="${sauda.saudaId}"></span></a></td>
-					<td th:text="${sauda.saudaStartDate}"></td>
-					<td th:text="${sauda.saudaEndDate}"></td>
+					<td><a th:href="@{'/sauda/id/'+${sauda.saudaId}}"><span th:text="${sauda.saudaId}"></span></a></td>
+					<td th:text="${#dates.format(sauda.saudaStartDate,'dd-MM-yyyy')}"></td>
+					<td th:text="${#dates.format(sauda.saudaEndDate,'dd-MM-yyyy')}"></td>
 					<td><a th:href="@{'/accounts/'+${sauda.buyerAccount.name}}"><span th:text="${sauda.buyerAccount.name}"></span></a></td>
 					<td><a th:href="@{'/accounts/'+${sauda.sellerAccount.name}}"><span th:text="${sauda.sellerAccount.name}"></span></a></td>
 					<td th:text="${sauda.options}"></td>

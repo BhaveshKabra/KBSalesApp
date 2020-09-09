@@ -2,7 +2,6 @@ package org.bhavesh.kbsales.bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -32,9 +31,9 @@ public class Sauda {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long saudaId;
 	@DateTimeFormat(iso = ISO.DATE)
-	private Date saudaStartDate;
+	private LocalDate saudaStartDate;
 	@DateTimeFormat(iso = ISO.DATE)
-	private Date saudaEndDate;
+	private LocalDate saudaEndDate;
 	@ManyToOne(targetEntity = Account.class)
 	private Account sellerAccount;
 	@ManyToOne(targetEntity = Account.class)

@@ -2,7 +2,6 @@ package org.bhavesh.kbsales.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -96,8 +95,8 @@ public class SaudaController {
 		return SAUDABYSTARTANDENDDATE;
 	}
 	@PostMapping("/sauda/dates")
-	public String postSaudasby2Dates(Model model,@RequestParam("saudaStartDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate
-												,@RequestParam("saudaEndDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date endDate)
+	public String postSaudasby2Dates(Model model,@RequestParam("saudaStartDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate
+												,@RequestParam("saudaEndDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate endDate)
 	{
 		if(startDate!=null && endDate!=null)
 		{
@@ -178,9 +177,10 @@ public class SaudaController {
 		return SAUDABYPARTANDDATE;
 	}
 	@PostMapping("/sauda/partyanddate")
-	public String postSaudasbyPartyandDate(@RequestParam("saudaStartDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate
-											,@RequestParam("saudaEndDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date endDate,
-											@Valid @RequestParam("account")AccountPOJO account,BindingResult result,Model model)
+	public String postSaudasbyPartyandDate(@Valid @ModelAttribute("account")AccountPOJO account,BindingResult result
+											,@RequestParam("saudaStartDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate
+											,@RequestParam("saudaEndDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate endDate
+											,Model model)
 	{
 		if(startDate!=null && endDate!=null && !result.hasErrors())
 		{

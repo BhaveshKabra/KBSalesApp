@@ -23,10 +23,10 @@ public interface SaudaRepository extends PagingAndSortingRepository<Sauda, Long>
 	
 	List<Sauda> findBySaudaStartDate(Date saudaStartDate);
 	
-	List<Sauda> findBySaudaStartDateAfterAndSaudaEndDateBefore(@Param("saudaStartDate") Date saudaStartDate,@Param("saudaEndDate")Date saudaEndDate);
+	List<Sauda> findBySaudaStartDateAfterAndSaudaEndDateBefore(@Param("saudaStartDate") LocalDate saudaStartDate,@Param("saudaEndDate")LocalDate saudaEndDate);
 	
 	List<Sauda> findBycreatedDateLike(@Param("saudaCreateDate") LocalDate saudaCreateDate);
 	
-	List<Sauda> findBySaudaStartDateBetween(@Param("from") Date from,@Param("to")Date to);
+	List<Sauda> findBySaudaStartDateBetween(LocalDate from,LocalDate to);
 
 }
