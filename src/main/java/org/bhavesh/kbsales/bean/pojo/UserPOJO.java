@@ -18,7 +18,7 @@ public class UserPOJO {
 	@NotNull
 	@NotEmpty
 	@Length(min = 3,max=30)
-	private String name;
+	private String username;
 	private String position;
 	@NotNull
 	@Length(min = 5,max=15)

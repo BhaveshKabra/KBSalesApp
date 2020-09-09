@@ -21,11 +21,11 @@ public class AccountService{
 		this.mapper=mapper;
 	}
 	
-	public Account getAccount(String accountname)
+	public AccountPOJO getAccount(String accountname)
 	{
 		Optional<Account> optAccount=accountrepo.findById(accountname);
 		if(optAccount.isPresent())
-			return optAccount.get();
+			return mapper.accounttoAccountPojo(optAccount.get());
 		else
 			return null;
 	}

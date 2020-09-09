@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class SaudaPOJO {
+	private long saudaId;
 	@DateTimeFormat(iso = ISO.DATE)
 	@NotNull
 	private Date saudaStartDate;

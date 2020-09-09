@@ -1,19 +1,19 @@
 package org.bhavesh.kbsales.repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 import org.bhavesh.kbsales.bean.Account;
 import org.bhavesh.kbsales.bean.Sauda;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SaudaRepository extends CrudRepository<Sauda, Long> {
+public interface SaudaRepository extends PagingAndSortingRepository<Sauda, Long> {
 	
-	List<Sauda> findByCreatedDate(Date createdDate);
+	List<Sauda> findByCreatedDate(LocalDate createdDate);
 
 	List<Sauda> findByBuyerAccount(Account buyerAccount);
 	
@@ -23,7 +23,10 @@ public interface SaudaRepository extends CrudRepository<Sauda, Long> {
 	
 	List<Sauda> findBySaudaStartDate(Date saudaStartDate);
 	
-	@Query(value="select s from sauda s where s.saudaStartDate>=:saudaStartDate and s.saudaEndDate<=:saudaEndDate",nativeQuery = true)
-	List<Sauda> findBySaudaRange(@Param("saudaStartDate") Date saudaStartDate,@Param("saudaEndDate")Date saudaEndDate);
+	List<Sauda> findBySaudaStartDateAfterAndSaudaEndDateBefore(@Param("saudaStartDate") Date saudaStartDate,@Param("saudaEndDate")Date saudaEndDate);
 	
+	List<Sauda> findBycreatedDateLike(@Param("saudaCreateDate") LocalDate saudaCreateDate);
+	
+	List<Sauda> findBySaudaStartDateBetween(@Param("from") Date from,@Param("to")Date to);
+
 }

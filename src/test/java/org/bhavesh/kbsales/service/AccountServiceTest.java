@@ -1,17 +1,5 @@
 package org.bhavesh.kbsales.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bhavesh.kbsales.bean.Account;
-import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
-import org.bhavesh.kbsales.mapper.AccountMapper;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest

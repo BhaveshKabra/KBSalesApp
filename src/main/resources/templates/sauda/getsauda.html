@@ -22,38 +22,83 @@ body {
 
 <body>
 	<div th:replace="fragments/navbar :: NavbarThymleaf"></div>
-
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10" id="content">
-				<form th:action="|${account.name}/update/|">
-				<table
-					class="table table-dark table-striped table-bordered .table-hover">
-						<caption>Get Sauda Details</caption>
-						<tr>
-							<th scope="row">Sauda Details</th>
-						</tr>
-						<tr>
-							<td>Name : </td>
-							<td><input type="text" th:value="${account.name}" disabled="disabled"></td>
-						</tr>
-						<tr>	
-							<td>City : </td>
-							<td><input type="text" th:value="${account.city}" disabled="disabled"></td>
-						</tr>
-						<tr>
-							<td>FSSAI : </td>
-							<td><input type="number" th:value="${account.fssai}" disabled="disabled"></td>
-						</tr>
-						<tr>
-							<td>GSTNO : </td>
-							<td><input type="number" th:value="${account.gstno}" disabled="disabled"></td>
-						</tr>
-				</table>
-					<button type="submit" class="btn btn-primary">Update records</button>
-				</form>
+				<div class="row" th:object="${sauda}">
+				<div class="col">
+					<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="content">
+						<label for="saudaStartDate">Sauda Start Date</label> <input
+							type="date" th:field="*{saudaStartDate}" id="saudaStartDate"
+							name="saudaStartDate" class="form-control"
+							th:error-class="has-error" disabled="disabled" />
+
+						<label for="saudaEndDate">Sauda End Date</label> <input
+							type="date" th:field="*{saudaEndDate}" id="saudaEndDate"
+							name="city" class="form-control" th:error-class="has-error" disabled="disabled">
+
+						<label for="sellerAccount">Seller Account</label> 
+						<input
+							th:field="*{sellerAccount.name}"
+							id="sellerAccount" name="sellerAccount"
+							placeholder="Seller Account name" class="form-control"
+							th:error-class="has-error" disabled="disabled">
+
+						<label for="buyerAccount">Buyer's Account</label> <input
+							th:field="*{buyerAccount.name}" id="buyerAccount"
+							name="buyerAccount" placeholder="Buyer Account name"
+							class="form-control" th:error-class="has-error" disabled="disabled">
+
+						<label for="rate">Rate</label> <input type="number"
+							th:field="*{rate}" id="rate" name="rate" placeholder="Rate"
+							class="form-control" th:error-class="has-error" disabled="disabled">
+						<label for="quantity">Quantity</label> <input type="number"
+							th:field="*{quantity}" id="quantity" name="quantity"
+							placeholder="quantity" class="form-control"
+							th:error-class="has-error" disabled="disabled">
+					</div>
+				</div>
+				<!-- Col closure -->
+				<div class="col">
+					<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 " id="content">
+						<label for="tankerNo">Tanker Details</label> <input type="text"
+							th:field="*{tankerNo}" id="tankerNo" name="tankerNo"
+							placeholder="Tanker No" class="form-control"
+							th:error-class="has-error" disabled="disabled">
+
+						<label for="refNo">Ref No</label> <input type="text"
+							th:field="*{refNo}" id="refNo" name="refNo"
+							placeholder="Referance no" class="form-control"
+							th:error-class="has-error" disabled="disabled">
+						
+						<label for="deposit">Deposit Amount</label> <input type="number"
+							th:field="*{deposit}" id="deposit" name="deposit"
+							placeholder="Amount depoisted" class="form-control"
+							th:error-class="has-error" disabled="disabled">
+						
+						<label for="description">Description</label> <input type="text"
+							th:field="*{description}" id="description" name="description"
+							placeholder="Description if any" class="form-control"
+							th:error-class="has-error" disabled="disabled">
+						
+						<label for="options">Option Type</label> <input type="text"
+							th:field="*{options}" id="options" name="options"
+							class="form-control"
+							th:error-class="has-error" disabled="disabled">
+						
+						<label for="type">Quantity Type</label> <input type="text"
+							th:field="*{type}" id="type" name="types"
+							class="form-control"
+							th:error-class="has-error" disabled="disabled">
+					</div>
+					<!-- End of Col-5 -->
+				</div>
 			</div>
-		</div>
+		<form th:action="|/sauda/id/${saudaid}/update/|" >
+			<button type="submit" class="btn btn-primary btn-lg float-left" >Update record</button>
+		</form>
+					
+		<form th:action="|/sauda/id/${saudaid}/delete/|" >
+			<button type="submit" class="btn btn-warning justify right btn-lg float-right" onclick="return confirm('Do you want to delete sauda ?')">Delete record</button>
+		</form>
 	</div>			
 </body>
 </html>

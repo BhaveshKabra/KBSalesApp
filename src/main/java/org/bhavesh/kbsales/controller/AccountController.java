@@ -36,14 +36,6 @@ public class AccountController {
 		return "account/insertnewaccounts";
 	}
 	
-	@GetMapping("/accounts/{accountid}/update")
-	public String showupdatepage(@PathVariable("accountid")String accountid,Model model)
-	{
-		model.addAttribute("pageTitle","Update "+accountid+" Details");
-		model.addAttribute(ACCOUNT,accountService.getAccount(accountid));
-		return "account/updateaccount";
-	}
-	
 	@PostMapping("/accounts/insert")
 	public String insertAccounts(@Valid @ModelAttribute(ACCOUNT) AccountPOJO accountpojo,BindingResult result,Model model)
 	{
@@ -58,13 +50,20 @@ public class AccountController {
 			return "redirect:";
 		}
 	}
-	
-	@PostMapping("/accounts/{accountid}/update/")
-	public String updateAccounts(@Valid @ModelAttribute("account") AccountPOJO accountpojo,BindingResult result,Model model)
+	@GetMapping("/accounts/{accountid}/update")
+	public String showupdatepage(@PathVariable("accountid")String accountid,Model model)
 	{
+		model.addAttribute("pageTitle","Update "+accountid+" Details");
+		model.addAttribute(ACCOUNT,accountService.getAccount(accountid));
+		return "account/updateaccount";
+	}
+	@PostMapping("/accounts/{accountid}/update")
+	public String updateAccounts(@PathVariable("accountid")String accountid,@Valid @ModelAttribute("account") AccountPOJO accountpojo,BindingResult result,Model model)
+	{	
 		if(result.hasErrors())
 		{
 			model.addAttribute("error",result.getAllErrors());
+			model.addAttribute(ACCOUNT,accountService.getAccount(accountid));
 			return "account/updateaccount";
 		}
 		else

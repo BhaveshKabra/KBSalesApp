@@ -22,8 +22,8 @@ public final class StringToAccountConverter implements Converter<String, Account
 	
 	@Override
 	public AccountPOJO convert(String source) {
-		logger.info("Convert called with soruce: ",source);
-		return accountMapper.accounttoAccountPojo(accountService.getAccount(source));
+		logger.info("Convert called with soruce: {}",source);
+		return accountService.getAccount(source);
 	}
 
 }

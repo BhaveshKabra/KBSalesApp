@@ -20,7 +20,6 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -28,7 +27,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@EqualsAndHashCode
 public class Sauda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -52,7 +50,11 @@ public class Sauda {
 	@Enumerated(value = EnumType.STRING)
 	private QuantityType type;
 	@CreationTimestamp
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate createdDate;
+	@DateTimeFormat(iso=ISO.DATE_TIME)
 	@LastModifiedDate
 	private LocalDateTime modifiedDate;
+	@Enumerated(value = EnumType.STRING)
+	private SaudaStatus status;
 }

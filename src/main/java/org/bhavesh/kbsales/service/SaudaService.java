@@ -1,11 +1,14 @@
 package org.bhavesh.kbsales.service;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.bhavesh.kbsales.bean.Sauda;
+import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
 import org.bhavesh.kbsales.bean.pojo.SaudaPOJO;
 import org.bhavesh.kbsales.mapper.SaudaMapper;
 import org.bhavesh.kbsales.repository.SaudaRepository;
@@ -22,31 +25,47 @@ public class SaudaService{
 		this.mapper=mapper;
 	}
 	
-	public Sauda getSaudabyid(Long saudaid)
+	public SaudaPOJO getSaudabyid(Long saudaid)
 	{
 		Optional<Sauda> optSauda=saudarepo.findById(saudaid);
 		if(optSauda.isPresent())
-			return optSauda.get();
+			return mapper.saudatoSaudaPOJO(optSauda.get());
 		else
 			return null;
 	}
-	public List<Sauda> getSaudabyDate(Date saudaDate)
+	public List<SaudaPOJO> getSaudabyCreationDate(LocalDate now)
 	{
-		return saudarepo.findByCreatedDate(saudaDate);
+		return mapper.saudalisttoSaudaPOJOlist(saudarepo.findByCreatedDate(now));
 	}
-	public List<Sauda> getSaudabyRange(Date saudastart, Date saudaend)
+	public List<SaudaPOJO> getSaudabyStartDateandEndDateRange(Date saudastart, Date saudaend)
 	{
-		return saudarepo.findBySaudaRange(saudastart, saudaend);
+		return mapper.saudalisttoSaudaPOJOlist(saudarepo.findBySaudaStartDateAfterAndSaudaEndDateBefore(saudastart, saudaend));
 	}
 	
-	public List<Sauda> getSaudabyClosingDate()
+	public List<SaudaPOJO> getSaudabyClosingDate()
 	{
-		return saudarepo.findBySaudaEndDate(Calendar.getInstance().getTime());
+		return mapper.saudalisttoSaudaPOJOlist(saudarepo.findBySaudaEndDate(Calendar.getInstance().getTime()));
 	}
 	
 	public void insertSauda(SaudaPOJO saudaPOJO)
 	{
 		saudarepo.save(mapper.saudaPOJOtoSauda(saudaPOJO));
+	}
+	
+	public List<SaudaPOJO> getSaudaByCreatedDatebetween(Date start,Date end)
+	{
+		return mapper.saudalisttoSaudaPOJOlist(saudarepo.findBySaudaStartDateBetween(start,end));
+	}
+
+	public List<SaudaPOJO>  getSaudabyAccountwithRange(Date startDate, Date endDate, AccountPOJO account) {
+		return getSaudaByCreatedDatebetween(startDate,endDate).stream()
+					.filter(sauda -> sauda.getBuyerAccount()==account || sauda.getSellerAccount()==account).collect(Collectors.toList());
+	}
+	public void updateSauda(Long id,SaudaPOJO saudaPOJO)
+	{
+		Sauda sauda=mapper.saudaPOJOtoSauda(saudaPOJO);
+		sauda.setSaudaId(id);
+		saudarepo.save(sauda);
 	}
 	
 }

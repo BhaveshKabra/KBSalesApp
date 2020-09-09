@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Enter Dates and View Sauda</title>
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"> 
+<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="/webjars/popper.js/2.0.2/umd/popper.min.js"></script>
+<style type="text/css">
+body {
+	padding-top: 55px;
+}
+#content {
+	margin: 5px
+}
+</style>
+</head>
+<body>
+
+<div class="container-fluid">
+
+	<div class="row">
+	<div th:replace="fragments/navbar :: NavbarThymleaf"></div>
+		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" id="content">
+		<form method ="post" action="/sauda/date" class="form-inline mb-4">
+			<div> 
+				<label for="saudaCreatedDate" class="mr-auto">Sauda Created Date</label> 
+				<input class="mr-3"
+						type="date" id="saudaCreatedDate"
+						name="saudaCreatedDate">
+			</div>
+			<div> 
+				<input type="submit" class="btn btn-primary mr-auto" value="Show sauda's">
+			</div>
+			</form>
+			<table class="table-dark table-striped" border="1">
+				<caption>Today's Sauda List</caption>
+				<thead>
+					<tr>
+						<th scope="row">ID</th>
+						<th scope="row">Start Date</th>
+						<th scope="row">End Date</th>
+						<th scope="row">BuyerName</th>
+						<th scope="row">SellerName</th>
+						<th scope="row">Option: Buyer/Seller</th>
+						<th scope="row">Quantity Type</th>
+						<th scope="row">Quantity</th>
+						<th scope="row">Rate</th>
+						<th scope="row">Ref no</th>
+						<th scope="row">TankerNo</th>
+						<th scope="row">Description</th>
+					</tr>
+				</thead>
+				<tr th:each=" sauda : ${saudaList}">
+					<td><a th:href="@{'/sauda/id/'+${sauda.saudaId}}"><span th:text="${sauda.saudaId}"></span></a></td>
+					<td th:text="${sauda.saudaStartDate}"></td>
+					<td th:text="${sauda.saudaEndDate}"></td>
+					<td><a th:href="@{'/accounts/'+${sauda.buyerAccount.name}}"><span th:text="${sauda.buyerAccount.name}"></span></a></td>
+					<td><a th:href="@{'/accounts/'+${sauda.sellerAccount.name}}"><span th:text="${sauda.sellerAccount.name}"></span></a></td>
+					<td th:text="${sauda.options}"></td>
+					<td th:text="${sauda.type}"></td>
+					<td th:text="${sauda.quantity}"></td>
+					<td th:text="${sauda.rate}"></td>
+					<td th:text="${sauda.refNo}"></td>
+					<td th:text="${sauda.tankerNo}"></td>
+					<td th:text="${sauda.description}"></td>
+				</tr>
+			</table>
+		</div>
+		</div>
+	</div>
+</body>
+</html>

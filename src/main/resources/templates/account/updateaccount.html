@@ -26,7 +26,10 @@ body {
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10" id="content">
-				<form action="#" method="post" th:object="${account}">
+				<form th:object="${account}" method="post" th:action="|/accounts/${account.name}/update/|">
+				<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+						<span>Error page</span>
+					</div>
 				<table
 					class="table table-dark table-striped table-bordered .table-hover">
 						<caption>Update Account Details</caption>
@@ -35,20 +38,20 @@ body {
 						</tr>
 						<tr>	
 							<td>Name</td>
-							<td class="col-sm-6 col-md-6 col-lg-6 col-xl-6 "><input type="text" th:field="*{name}" id="name"
-								name="name" th:error-class="has-error" ></td>
-							<td>	
-							<div class="form-group" th:class="${#fields.hasErrors('name')} ? 'form-group has-error' : 'form-group'">
+							<td class="col-sm-6 col-md-6 col-lg-6 col-xl-6 "><input type="text" id="name"
+								name="name" th:error-class="has-error" th:value="${account.name}" readonly="readonly" >
+								<div class="form-group" th:class="${#fields.hasErrors('name')} ? 'form-group has-error' : 'form-group'">
 								<ul th:if="${#fields.hasErrors('name')}">
-									<li th:each="err : ${#fields.errors('name')}" th:text="${err}">
+								<li th:each="err : ${#fields.errors('name')}" th:text="${err}">
 								</ul>
-							</div>
-							</td>	
+								</div>
+							</td>
+								
 						</tr>
 						<tr>	
 							<td>City</td>
 							<td class="col-sm-6 col-md-6 col-lg-6 col-xl-6 "><input type="text" th:field="*{city}" id="city"
-								name="city" th:error-class="has-error" ></td>
+								name="city" th:error-class="has-error" th:value="${account.city}" ></td>
 							<td>	
 							<div class="form-group" th:class="${#fields.hasErrors('city')} ? 'form-group has-error' : 'form-group'">
 								<ul th:if="${#fields.hasErrors('city')}">
@@ -60,7 +63,7 @@ body {
 						<tr>
 							<td>FSSAI</td>
 							<td><input type="number" th:text="${account.fssai}" th:field="*{fssai}" id="fssai"
-								name="fssai" th:error-class="has-error" ></td>
+								name="fssai" th:error-class="has-error" th:value="${account.fssai}"></td>
 							<td>	
 							<div class="form-group" th:class="${#fields.hasErrors('fssai')} ? 'form-group has-error' : 'form-group'">
 								<ul th:if="${#fields.hasErrors('fssai')}">
@@ -72,7 +75,7 @@ body {
 						<tr>
 							<td>GSTNO</td>
 							<td><input type="number" th:text="${account.gstno}" th:field="*{gstno}" id="gstno"
-								name="gstno" th:error-class="has-error" ></td>
+								name="gstno" th:error-class="has-error" th:value="${account.gstno}"></td>
 							<td>	
 							<div class="form-group" th:class="${#fields.hasErrors('gstno')} ? 'form-group has-error' : 'form-group'">
 								<ul th:if="${#fields.hasErrors('gstno')}">
