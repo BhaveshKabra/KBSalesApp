@@ -80,4 +80,12 @@ public class AccountController {
 		model.addAttribute(ACCOUNT,accountService.getAccount(accountid));
 		return "account/getaccount";
 	}
+	@PostMapping("/accounts/{accountid}/delete")
+	public String deleteAccount(@PathVariable("accountid")String accountid,Model model)
+	{
+		AccountPOJO account=accountService.getAccount(accountid);
+		accountService.deleteAccount(account);
+		return "redirect:/accounts";
+	}
+	
 }

@@ -1,7 +1,7 @@
 package org.bhavesh.kbsales.bean.validator;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.bhavesh.kbsales.bean.pojo.SaudaPOJO;
 import org.springframework.validation.Errors;
@@ -17,13 +17,13 @@ public class SaudaValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		SaudaPOJO saudaPOJO=(SaudaPOJO)target;
-		Date startDate=saudaPOJO.getSaudaStartDate();
-		Date endDate=saudaPOJO.getSaudaEndDate();
-		if(!startDate.after(endDate))
+		LocalDate startDate=saudaPOJO.getSaudaStartDate();
+		LocalDate endDate=saudaPOJO.getSaudaEndDate();
+		if(!startDate.isAfter(endDate))
 		{
 			errors.rejectValue("saudaStartDate","","Start Date cannot be less than end Date");
 		}
-		if(!endDate.after(startDate))
+		if(!endDate.isAfter(startDate))
 		{
 			errors.rejectValue("saudaEndDate","","End Date cannot be less than start Date");
 		}

@@ -66,5 +66,9 @@ public class SaudaService{
 		sauda.setSaudaId(id);
 		saudarepo.save(sauda);
 	}
+
+	public void deleteSauda(SaudaPOJO sauda) {
+		saudarepo.delete(mapper.saudaPOJOtoSauda(sauda));
+	}
 	
 }

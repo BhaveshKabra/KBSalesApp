@@ -195,4 +195,11 @@ public class SaudaController {
 		return "redirect:/sauda/partyanddate";
 		
 	}
+	@PostMapping("/sauda/id/{saudaid}/delete")
+	public String deleteAccount(@PathVariable("saudaid") long saudaid,Model model)
+	{
+		SaudaPOJO sauda=saudaService.getSaudabyid(saudaid);
+		saudaService.deleteSauda(sauda);
+		return "redirect:/accounts";
+	}
 }

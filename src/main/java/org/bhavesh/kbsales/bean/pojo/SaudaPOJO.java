@@ -1,6 +1,6 @@
 package org.bhavesh.kbsales.bean.pojo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -24,10 +24,10 @@ public class SaudaPOJO {
 	private long saudaId;
 	@DateTimeFormat(iso = ISO.DATE)
 	@NotNull
-	private Date saudaStartDate;
+	private LocalDate saudaStartDate;
 	@DateTimeFormat(iso = ISO.DATE)
 	@NotNull
-	private Date saudaEndDate;
+	private LocalDate saudaEndDate;
 	@NotNull
 	private AccountPOJO sellerAccount;
 	@NotNull
@@ -42,5 +42,5 @@ public class SaudaPOJO {
 	private Integer deposit;
 	private String description;
 	private OptionEnum options;
-	private QuantityType type;	
+	private QuantityType type;
 }

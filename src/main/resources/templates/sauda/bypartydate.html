@@ -70,8 +70,8 @@ body {
 				</thead>
 				<tr th:each=" sauda : ${saudaList}">
 					<td><a th:href="@{'/sauda/id/'+${sauda.saudaId}}"><span th:text="${sauda.saudaId}"></span></a></td>
-					<td th:text="${#dates.format(sauda.saudaStartDate,'dd-MM-yyyy')}"></td>
-					<td th:text="${#dates.format(sauda.saudaEndDate,'dd-MM-yyyy')}"></td>
+					<td th:text="${sauda.saudaStartDate}"></td>
+					<td th:text="${sauda.saudaEndDate}"></td>
 					<td><a th:href="@{'/accounts/'+${sauda.buyerAccount.name}}"><span th:text="${sauda.buyerAccount.name}"></span></a></td>
 					<td><a th:href="@{'/accounts/'+${sauda.sellerAccount.name}}"><span th:text="${sauda.sellerAccount.name}"></span></a></td>
 					<td th:text="${sauda.options}"></td>

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -42,7 +43,6 @@ public class User //implements UserDetails
 	private LocalDateTime modifiedDate;
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
 	private Collection<Authorities> authorities;
-	/*
 	@Column(name="accountNonExpired",columnDefinition="TinyInt(1) default 1")
 	boolean accountNonExpired;
 	@Column(name="accountNonLocked",columnDefinition="TinyInt(1) default 1")
@@ -51,5 +51,4 @@ public class User //implements UserDetails
 	boolean credentialsNonExpired;
 	@Column(name="enabled",columnDefinition="TinyInt(1) default 1")
 	boolean enabled;
-	*/
 }

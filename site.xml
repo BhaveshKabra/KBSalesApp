@@ -1,0 +1,21 @@
+<project name="KBSales App">
+	<bannerLeft>
+		<name>Project Name</name>
+		<src>https://maven.apache.org/images/apache-maven-project-2.png</src>
+		<href>https://maven.apache.org/</href>
+	</bannerLeft>
+	<publishDate position="right" />
+	<version position="left" />
+	<poweredBy>
+		<logo name="Maven" href="https://maven.apache.org/"
+			img="https://maven.apache.org/images/logos/maven-feather.png" />
+	</poweredBy>
+	<body>
+		<links>
+			<item name="Apache" href="http://www.apache.org"/>
+        	<item name="Maven" href="https://maven.apache.org"/>
+        	<item name="Spring" href="https://spring.io"/>
+		</links>
+	
+	</body>
+</project>

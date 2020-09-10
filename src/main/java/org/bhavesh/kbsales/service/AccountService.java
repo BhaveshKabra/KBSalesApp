@@ -65,4 +65,8 @@ public class AccountService{
 	{
 		accountrepo.save(mapper.accountPOJOtoAccount(accountpojo));
 	}
+	public void deleteAccount(AccountPOJO accountpojo)
+	{
+		accountrepo.delete(mapper.accountPOJOtoAccount(accountpojo));
+	}
 }
