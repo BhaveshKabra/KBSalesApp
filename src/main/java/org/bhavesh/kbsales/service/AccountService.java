@@ -8,6 +8,8 @@ import org.bhavesh.kbsales.bean.Account;
 import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
 import org.bhavesh.kbsales.mapper.AccountMapper;
 import org.bhavesh.kbsales.repository.AccountRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,10 +32,11 @@ public class AccountService{
 			return null;
 	}
 	
-	public List<AccountPOJO> getAllAccount()
+	public List<AccountPOJO> getAllAccount(int pageno,int pagesize,Sort sort)
 	{
 		ArrayList<AccountPOJO> listAccountpojo= new ArrayList<AccountPOJO>();
-		for(Account account: accountrepo.findAll())
+		PageRequest page=PageRequest.of(pageno, pagesize,sort);
+		for(Account account: accountrepo.findAll(page))
 		{
 			listAccountpojo.add(mapper.accounttoAccountPojo(account));
 		}

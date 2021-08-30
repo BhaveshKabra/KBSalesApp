@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
 import org.bhavesh.kbsales.service.AccountService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,10 +23,18 @@ public class AccountController {
 		this.accountService=accountService;
 	}
 	
-	@RequestMapping("/accounts")
+	@RequestMapping("/accounts/search/")
 	public String getAllAccounts(Model model)
 	{
-		model.addAttribute("accountlist",accountService.getAllAccount());
+		model.addAttribute("accountlist",accountService.getAllAccount(0, 30,Sort.by("name")));
+		return "account/getallaccounts";
+	}
+	
+	@RequestMapping("/accounts/search/{pageno}")
+	public String getAllAccounts(@PathVariable Integer pageno,Model model)
+	{
+		
+		model.addAttribute("accountlist",accountService.getAllAccount(pageno, 30,Sort.by("name")));
 		return "account/getallaccounts";
 	}
 	
