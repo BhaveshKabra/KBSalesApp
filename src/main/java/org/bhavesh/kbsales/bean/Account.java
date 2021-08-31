@@ -1,6 +1,6 @@
 package org.bhavesh.kbsales.bean;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @EqualsAndHashCode
-public class Account {
+public class Account extends Auditable<String>{
 	@Id
 	@NotBlank
 	@NotNull
@@ -43,12 +43,18 @@ public class Account {
 	@Column(length = 14)
 	private Integer fssai;
 	@CreatedDate
-	LocalDateTime createdDate;
+	Date createdDate;
 	@LastModifiedDate
-	LocalDateTime modifiedDate;
+	Date modifiedDate;
 	@Email
 	private String emails;
+	/*
 	@LastModifiedBy
 	@ManyToOne(targetEntity = User.class,fetch = FetchType.EAGER)
-	private User modifyingUser;
+	private User lastModifiedBy;
+	
+	@LastModifiedBy
+	@ManyToOne(targetEntity = User.class,fetch = FetchType.EAGER)
+	private User createdBy;
+	*/
 }

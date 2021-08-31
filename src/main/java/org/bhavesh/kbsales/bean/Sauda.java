@@ -1,7 +1,7 @@
 package org.bhavesh.kbsales.bean;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Sauda {
+public class Sauda extends Auditable<String> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long saudaId;
@@ -50,10 +50,10 @@ public class Sauda {
 	private QuantityType type;
 	@CreationTimestamp
 	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate createdDate;
+	private Date createdDate;
 	@DateTimeFormat(iso=ISO.DATE_TIME)
 	@LastModifiedDate
-	private LocalDateTime modifiedDate;
+	private Date modifiedDate;
 	@Enumerated(value = EnumType.STRING)
 	private SaudaStatus status;
 }

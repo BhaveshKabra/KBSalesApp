@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AccountController {
 	
+	private static final String ACCOUNTLIST = "accountlist";
 	AccountService accountService;
 	public static final String ACCOUNT="account";
 	public AccountController(AccountService accountService) {
@@ -26,16 +27,24 @@ public class AccountController {
 	@RequestMapping("/accounts/search/")
 	public String getAllAccounts(Model model)
 	{
-		model.addAttribute("accountlist",accountService.getAllAccount(0, 30,Sort.by("name")));
-		return "account/getallaccounts";
+		return "redirect:/accounts/search/1";
 	}
 	
 	@RequestMapping("/accounts/search/{pageno}")
 	public String getAllAccounts(@PathVariable Integer pageno,Model model)
 	{
-		
-		model.addAttribute("accountlist",accountService.getAllAccount(pageno, 30,Sort.by("name")));
-		return "account/getallaccounts";
+		if(pageno>0)
+		{
+			model.addAttribute(ACCOUNTLIST,accountService.getAllAccount(pageno-1,Sort.by("name")));
+			model.addAttribute("pageno",pageno);
+		}
+		else
+		{
+			model.addAttribute(ACCOUNTLIST,accountService.getAllAccount(0,Sort.by("name")));
+			model.addAttribute("pageno",0);
+		}
+			model.addAttribute("lastpage",accountService.getSize());
+			return "account/getallaccounts";
 	}
 	
 	@GetMapping("/accounts/insert")

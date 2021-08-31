@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService{
-
+	
 	private AccountRepository accountrepo;
 	private AccountMapper mapper;
 	public AccountService(AccountRepository accountrepo,AccountMapper mapper)
@@ -22,7 +22,8 @@ public class AccountService{
 		this.accountrepo=accountrepo;
 		this.mapper=mapper;
 	}
-	
+	int pagesize = 20;
+	int maxsize=0;
 	public AccountPOJO getAccount(String accountname)
 	{
 		Optional<Account> optAccount=accountrepo.findById(accountname);
@@ -32,10 +33,10 @@ public class AccountService{
 			return null;
 	}
 	
-	public List<AccountPOJO> getAllAccount(int pageno,int pagesize,Sort sort)
+	public List<AccountPOJO> getAllAccount(int pageno,Sort sort)
 	{
 		ArrayList<AccountPOJO> listAccountpojo= new ArrayList<AccountPOJO>();
-		PageRequest page=PageRequest.of(pageno, pagesize,sort);
+		PageRequest page=PageRequest.of(pageno,pagesize,sort);
 		for(Account account: accountrepo.findAll(page))
 		{
 			listAccountpojo.add(mapper.accounttoAccountPojo(account));
@@ -71,5 +72,9 @@ public class AccountService{
 	public void deleteAccount(AccountPOJO accountpojo)
 	{
 		accountrepo.delete(mapper.accountPOJOtoAccount(accountpojo));
+	}
+	public long getSize()
+	{
+		return Math.round(Math.ceil((accountrepo.count()/(double)pagesize)));
 	}
 }

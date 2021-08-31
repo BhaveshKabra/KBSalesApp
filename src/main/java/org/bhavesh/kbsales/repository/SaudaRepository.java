@@ -6,12 +6,12 @@ import java.util.List;
 
 import org.bhavesh.kbsales.bean.Account;
 import org.bhavesh.kbsales.bean.Sauda;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SaudaRepository extends PagingAndSortingRepository<Sauda, Long> {
+public interface SaudaRepository extends CrudRepository<Sauda, Long> {
 	
 	List<Sauda> findByCreatedDate(LocalDate createdDate);
 
