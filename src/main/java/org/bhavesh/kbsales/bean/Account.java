@@ -4,16 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +29,8 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class Account extends Auditable<String>{
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	private Long id;
 	@NotBlank
 	@NotNull
 	@Length(min = 2,max=255)

@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -48,12 +48,10 @@ public class Sauda extends Auditable<String> {
 	private OptionEnum options;
 	@Enumerated(value = EnumType.STRING)
 	private QuantityType type;
-	@CreationTimestamp
-	@DateTimeFormat(iso = ISO.DATE)
-	private Date createdDate;
-	@DateTimeFormat(iso=ISO.DATE_TIME)
+	@CreatedDate
+	Date createdDate;
 	@LastModifiedDate
-	private Date modifiedDate;
+	Date modifiedDate;
 	@Enumerated(value = EnumType.STRING)
 	private SaudaStatus status;
 }

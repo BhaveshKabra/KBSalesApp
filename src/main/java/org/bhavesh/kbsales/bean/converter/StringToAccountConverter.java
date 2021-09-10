@@ -19,11 +19,12 @@ public final class StringToAccountConverter implements Converter<String, Account
 		this.accountMapper=accountMapper;
 		this.logger=LoggerFactory.getLogger(StringToAccountConverter.class);
 	}
-	
+
 	@Override
 	public AccountPOJO convert(String source) {
-		logger.info("Convert called with soruce: {}",source);
-		return accountService.getAccount(source);
+		logger.info("Convert called with id: {}",source);
+		String account=source.substring(0, source.indexOf('-'));
+		String city=source.substring(source.indexOf('-')+1); 
+		return accountService.getAccountbyNameandCity(account,city);
 	}
-
 }

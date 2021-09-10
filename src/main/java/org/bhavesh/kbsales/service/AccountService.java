@@ -26,18 +26,35 @@ public class AccountService{
 	int maxsize=0;
 	public AccountPOJO getAccount(String accountname)
 	{
-		Optional<Account> optAccount=accountrepo.findById(accountname);
+		Optional<Account> optAccount=accountrepo.findByName(accountname);
 		if(optAccount.isPresent())
 			return mapper.accounttoAccountPojo(optAccount.get());
 		else
 			return null;
 	}
-	
+	public AccountPOJO getAccount(long id)
+	{
+		Optional<Account> optAccount=accountrepo.findById(id);
+		if(optAccount.isPresent())
+			return mapper.accounttoAccountPojo(optAccount.get());
+		else
+			return null;
+	}
 	public List<AccountPOJO> getAllAccount(int pageno,Sort sort)
 	{
 		ArrayList<AccountPOJO> listAccountpojo= new ArrayList<AccountPOJO>();
 		PageRequest page=PageRequest.of(pageno,pagesize,sort);
 		for(Account account: accountrepo.findAll(page))
+		{
+			listAccountpojo.add(mapper.accounttoAccountPojo(account));
+		}
+		return listAccountpojo;
+	}
+	
+	public List<AccountPOJO> getAllAccount()
+	{
+		ArrayList<AccountPOJO> listAccountpojo= new ArrayList<AccountPOJO>();
+		for(Account account: accountrepo.findAll())
 		{
 			listAccountpojo.add(mapper.accounttoAccountPojo(account));
 		}
@@ -76,5 +93,17 @@ public class AccountService{
 	public long getSize()
 	{
 		return Math.round(Math.ceil((accountrepo.count()/(double)pagesize)));
+	}
+	public AccountPOJO getAccountbyNameandCity(String account, String city) {
+		Optional<Account> optAccount=accountrepo.findByNameAndCity(account,city);
+		if(optAccount.isPresent())
+		{
+			return mapper.accounttoAccountPojo(optAccount.get());
+		}
+		else
+		{
+			return null;
+		}
+		
 	}
 }

@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AccountPOJO {
+	private long id;
 	@NotBlank
 	@NotNull
 	@Length(min = 2,max=255)

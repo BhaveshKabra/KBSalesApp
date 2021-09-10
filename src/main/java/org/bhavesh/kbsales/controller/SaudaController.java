@@ -63,7 +63,7 @@ public class SaudaController {
 	public String insertSauda(Model model)
 	{
 		model.addAttribute(SAUDAATTRIBUTE,new SaudaPOJO());
-		List<String> listAccountNames= accountService.getAllAccountsName();
+		List<AccountPOJO> listAccountNames= accountService.getAllAccount();
 		model.addAttribute(ACCOUNTLISTATTRIBUTE,listAccountNames);
 		return INSERTSAUDAURL;
 	}
@@ -73,7 +73,7 @@ public class SaudaController {
 		if(result.hasErrors())
 		{
 			model.addAttribute(ERRORATTRIBUTE,result.getAllErrors());
-			List<String> listAccountNames= accountService.getAllAccountsName();
+			List<AccountPOJO> listAccountNames= accountService.getAllAccount();
 			model.addAttribute(ACCOUNTLISTATTRIBUTE,listAccountNames);
 			return INSERTSAUDAURL;
 		}
@@ -100,12 +100,10 @@ public class SaudaController {
 	{
 		if(startDate!=null && endDate!=null)
 		{
-			model.addAttribute(SAUDALISTATTRIBUTE,saudaService.getSaudabyStartDateandEndDateRange(startDate, endDate));
+			model.addAttribute(SAUDALISTATTRIBUTE,saudaService.getSaudabyStartDateandEndDateRange(startDate.minusDays(1), endDate.plusDays(1)));
 			return SAUDABYSTARTANDENDDATE;
-			
 		}
 		return "redirect:/sauda/dates";
-		
 	}
 	
 	/*
@@ -122,6 +120,7 @@ public class SaudaController {
 	{
 		if(saudaCreatedDate!=null)
 		{
+			logger.info("Date is {}",saudaCreatedDate);
 			model.addAttribute(SAUDALISTATTRIBUTE,saudaService.getSaudabyCreationDate(saudaCreatedDate));
 			return SAUDABYCREATEDDATE;
 		}
@@ -135,6 +134,7 @@ public class SaudaController {
 	public String getSaudasbyTodayDate(Model model)
 	{
 		LocalDate  now = LocalDate.now();
+		logger.info("Date is {}",now);
 		model.addAttribute(SAUDALISTATTRIBUTE,saudaService.getSaudabyCreationDate(now));
 		return "sauda/getbytodaydate";
 	}

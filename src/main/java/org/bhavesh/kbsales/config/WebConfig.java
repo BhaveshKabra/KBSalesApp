@@ -1,6 +1,9 @@
 package org.bhavesh.kbsales.config;
 
+import java.util.Date;
+
 import org.bhavesh.kbsales.bean.converter.StringToAccountConverter;
+import org.bhavesh.kbsales.bean.converter.StringToDateConverter;
 import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
 import org.bhavesh.kbsales.mapper.AccountMapper;
 import org.bhavesh.kbsales.service.AccountService;
@@ -30,6 +33,7 @@ public class WebConfig implements WebMvcConfigurer{
     public void addFormatters(FormatterRegistry registry) {
 		logger.info("Included Converter of String to AccountPOJO");
         registry.addConverter(String.class, AccountPOJO.class, new StringToAccountConverter(accountService,accountMapper));
+        registry.addConverter(String.class, Date.class, new StringToDateConverter());
     }
 	
 	

@@ -9,6 +9,18 @@
 	href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
 <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="/webjars/popper.js/2.0.2/umd/popper.min.js"></script>
+<!-- 
+<script>
+$(document).ready(function() {
+
+    $('#submit').click(function()
+    {
+        var value = $('#selected').val();
+        alert($('#browsers [value="' + value + '"]').data('value'));
+    });
+});
+</script>
+ -->
 <style type="text/css">
 body {
 	padding-top: 55px;
@@ -63,7 +75,7 @@ body {
 							placeholder="Seller Account name" class="form-control"
 							th:error-class="has-error">
 						<datalist id="sellerAccounts" >
-								<option th:each="accountName: ${AccountsNames}" th:text="${accountName}" th:value="${accountName}"></option>
+								<option th:each="accountName: ${AccountsNames}" th:data-value="${accountName.id}"><span th:text="${accountName.name+'-'+accountName.city}"></span></option>
 						</datalist>
 						<div class="form-group"
 							th:class="${#fields.hasErrors('sellerAccount')} ? 'form-group has-error' : 'form-group'">
@@ -78,7 +90,7 @@ body {
 							name="buyerAccount" placeholder="Buyer Account name"
 							class="form-control" th:error-class="has-error">
 						<datalist id="buyerAccounts" >
-							<option th:each="accountName: ${AccountsNames}" th:text="${accountName}" th:value="${accountName}"></option>
+							<option th:each="accountName: ${AccountsNames}" th:data-value="${accountName.id}"><span th:text="${accountName.name+'-'+accountName.city}"></span></option>
 						</datalist>
 						<div class="form-group"
 							th:class="${#fields.hasErrors('buyerAccount')} ? 'form-group has-error' : 'form-group'">
