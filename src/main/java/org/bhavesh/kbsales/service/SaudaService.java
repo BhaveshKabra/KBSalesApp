@@ -13,7 +13,10 @@ import org.bhavesh.kbsales.mapper.SaudaMapper;
 import org.bhavesh.kbsales.repository.SaudaRepository;
 import org.springframework.stereotype.Service;
 
+import lombok.NoArgsConstructor;
+
 @Service
+@NoArgsConstructor
 public class SaudaService{
 
 	SaudaRepository saudarepo;
@@ -23,7 +26,11 @@ public class SaudaService{
 		this.saudarepo=saudarepo;
 		this.mapper=mapper;
 	}
-	
+	public SaudaService(SaudaService saudaService)
+	{
+		this.saudarepo=saudaService.saudarepo;
+		this.mapper=saudaService.mapper;
+	}
 	public SaudaPOJO getSaudabyid(Long saudaid)
 	{
 		Optional<Sauda> optSauda=saudarepo.findById(saudaid);

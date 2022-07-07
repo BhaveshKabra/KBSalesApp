@@ -35,13 +35,13 @@ public class SaudaController {
 	private static final String ACCOUNTLISTATTRIBUTE="AccountsNames";
 	private static final String ERRORATTRIBUTE="error";
 	
-	SaudaService saudaService;
-	AccountService accountService;
-	
+	private final SaudaService saudaService;
+	private final AccountService accountService;
 	Logger logger;
-	public SaudaController(SaudaService saudaService,AccountService accountService) {
-		this.saudaService = saudaService;
-		this.accountService=accountService;
+	
+	public SaudaController(final SaudaService saudaService,final AccountService accountService) {
+		this.saudaService=new SaudaService(saudaService);
+		this.accountService=new AccountService(accountService);
 		this.logger=LoggerFactory.getLogger(SaudaController.class);
 	}
 	

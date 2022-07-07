@@ -15,14 +15,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable<U> {
+public abstract class Auditable<U> extends Object{
 
 	@CreatedBy
 	protected U createdBy;
 	@LastModifiedBy
 	protected U lastModifiedBy;
 	@CreatedDate
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date createdDate;
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)

@@ -12,7 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import lombok.NoArgsConstructor;
+
 @Service
+@NoArgsConstructor
 public class AccountService{
 	
 	private AccountRepository accountrepo;
@@ -22,8 +25,13 @@ public class AccountService{
 		this.accountrepo=accountrepo;
 		this.mapper=mapper;
 	}
-	int pagesize = 20;
-	int maxsize=0;
+	
+	public AccountService(AccountService accountService)
+	{
+		this.accountrepo=accountService.accountrepo;
+		this.mapper=accountService.mapper;
+	}
+	private int pagesize = 20;
 	public AccountPOJO getAccount(String accountname)
 	{
 		Optional<Account> optAccount=accountrepo.findByName(accountname);
@@ -42,7 +50,7 @@ public class AccountService{
 	}
 	public List<AccountPOJO> getAllAccount(int pageno,Sort sort)
 	{
-		ArrayList<AccountPOJO> listAccountpojo= new ArrayList<AccountPOJO>();
+		ArrayList<AccountPOJO> listAccountpojo= new ArrayList<>();
 		PageRequest page=PageRequest.of(pageno,pagesize,sort);
 		for(Account account: accountrepo.findAll(page))
 		{

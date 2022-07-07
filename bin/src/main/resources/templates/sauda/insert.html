@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Sauda</title>
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="/webjars/popper.js/2.0.2/umd/popper.min.js"></script>
+<!-- 
+<script>
+$(document).ready(function() {
+
+    $('#submit').click(function()
+    {
+        var value = $('#selected').val();
+        alert($('#browsers [value="' + value + '"]').data('value'));
+    });
+});
+</script>
+ -->
+<style type="text/css">
+body {
+	padding-top: 55px;
+}
+
+#content {
+	margin: 5px;
+}
+</style>
+</head>
+
+
+<body>
+	<div th:replace="fragments/navbar :: NavbarThymleaf"></div>
+	<div class="container-fluid">
+		<form action="/sauda/insert" th:object="${sauda}" method="post"
+			class="form-group">
+			<div class="row">
+				<div class="col">
+					<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="content">
+						<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+							<span>Error page</span>
+						</div>
+						<label for="saudaStartDate">Sauda Start Date</label> <input
+							type="date" th:field="*{saudaStartDate}" id="saudaStartDate"
+							name="saudaStartDate" class="form-control"
+							th:error-class="has-error" />
+						<div class="form-group"
+							th:class="${#fields.hasErrors('saudaStartDate')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('saudaStartDate')}">
+								<li th:each="err : ${#fields.errors('saudaStartDate')}"
+									th:text="${err}">
+							</ul>
+						</div>
+
+						<label for="saudaEndDate">Sauda End Date</label> <input
+							type="date" th:field="*{saudaEndDate}" id="saudaEndDate"
+							name="city" class="form-control" th:error-class="has-error">
+						<div class="form-group"
+							th:class="${#fields.hasErrors('saudaEndDate')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('saudaEndDate')}">
+								<li th:each="err : ${#fields.errors('saudaEndDate')}"
+									th:text="${err}">
+							</ul>
+						</div>
+
+
+						<label for="sellerAccount">Seller Account</label> 
+						<input
+							list="sellerAccounts" th:field="*{sellerAccount}"
+							id="sellerAccount" name="sellerAccount"
+							placeholder="Seller Account name" class="form-control"
+							th:error-class="has-error">
+						<datalist id="sellerAccounts" >
+								<option th:each="accountName: ${AccountsNames}" th:data-value="${accountName.id}"><span th:text="${accountName.name+'-'+accountName.city}"></span></option>
+						</datalist>
+						<div class="form-group"
+							th:class="${#fields.hasErrors('sellerAccount')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('sellerAccount')}">
+								<li th:each="err : ${#fields.errors('sellerAccount')}"
+									th:text="${err}">
+							</ul>
+						</div>
+
+						<label for="buyerAccount">Buyer's Account</label> <input
+							list="buyerAccounts" th:field="*{buyerAccount}" id="buyerAccount"
+							name="buyerAccount" placeholder="Buyer Account name"
+							class="form-control" th:error-class="has-error">
+						<datalist id="buyerAccounts" >
+							<option th:each="accountName: ${AccountsNames}" th:data-value="${accountName.id}"><span th:text="${accountName.name+'-'+accountName.city}"></span></option>
+						</datalist>
+						<div class="form-group"
+							th:class="${#fields.hasErrors('buyerAccount')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('buyerAccount')}">
+								<li th:each="err : ${#fields.errors('buyerAccount')}"
+									th:text="${err}">
+							</ul>
+						</div>
+
+						<label for="rate">Rate</label> <input type="number"
+							th:field="*{rate}" id="rate" name="rate" placeholder="Rate"
+							class="form-control" th:error-class="has-error">
+						<div class="form-group"
+							th:class="${#fields.hasErrors('rate')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('rate')}">
+								<li th:each="err : ${#fields.errors('rate')}" th:text="${err}">
+							</ul>
+						</div>
+						<label for="quantity">Quantity</label> <input type="number"
+							th:field="*{quantity}" id="quantity" name="quantity"
+							placeholder="quantity" class="form-control"
+							th:error-class="has-error">
+						<div class="form-group"
+							th:class="${#fields.hasErrors('rate')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('rate')}">
+								<li th:each="err : ${#fields.errors('rate')}" th:text="${err}">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- Col closure -->
+				<div class="col">
+					<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 " id="content">
+						<label for="tankerNo">Tanker Details</label> <input type="text"
+							th:field="*{tankerNo}" id="tankerNo" name="tankerNo"
+							placeholder="Tanker No" class="form-control"
+							th:error-class="has-error">
+						<div class="form-group"
+							th:class="${#fields.hasErrors('tankerNo')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('tankerNo')}">
+								<li th:each="err : ${#fields.errors('tankerNo')}"
+									th:text="${err}">
+							</ul>
+						</div>
+						<label for="refNo">Ref No</label> <input type="text"
+							th:field="*{refNo}" id="refNo" name="refNo"
+							placeholder="Referance no" class="form-control"
+							th:error-class="has-error">
+						<div class="form-group"
+							th:class="${#fields.hasErrors('refNo')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('refNo')}">
+								<li th:each="err : ${#fields.errors('refNo')}" th:text="${err}">
+							</ul>
+						</div>
+						<label for="deposit">Deposit Amount</label> <input type="number"
+							th:field="*{deposit}" id="deposit" name="deposit"
+							placeholder="Amount depoisted" class="form-control"
+							th:error-class="has-error">
+						<div class="form-group"
+							th:class="${#fields.hasErrors('deposit')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('deposit')}">
+								<li th:each="err : ${#fields.errors('deposit')}"
+									th:text="${err}">
+							</ul>
+						</div>
+						<label for="description">Description</label> <input type="text"
+							th:field="*{description}" id="description" name="description"
+							placeholder="Description if any" class="form-control"
+							th:error-class="has-error">
+						<div class="form-group"
+							th:class="${#fields.hasErrors('description')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('description')}">
+								<li th:each="err : ${#fields.errors('description')}"
+									th:text="${err}">
+							</ul>
+						</div>
+						<label for="options">Option Type</label> <select name="options" id="options"
+							class="form-check" th:error-class="has-error">
+							<option
+								th:each="opttype : ${T(org.bhavesh.kbsales.bean.OptionEnum).values()}"
+								th:value="${opttype}" th:text="${opttype}" />
+						</select>
+						<div class="form-group"
+							th:class="${#fields.hasErrors('options')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('options')}">
+								<li th:each="err : ${#fields.errors('options')}"
+									th:text="${err}">
+							</ul>
+						</div>
+						<label for="type">Quantity Type</label> <select
+							name="type" id="type" class="form-check"
+							th:error-class="has-error">
+							<option
+								th:each="qunattype : ${T(org.bhavesh.kbsales.bean.QuantityType).values()}"
+								th:value="${qunattype}" th:text="${qunattype}"  />
+						</select>
+						<div class="form-group"
+							th:class="${#fields.hasErrors('type')} ? 'form-group has-error' : 'form-group'">
+							<ul th:if="${#fields.hasErrors('type')}">
+								<li th:each="err : ${#fields.errors('type')}" th:text="${err}">
+							</ul>
+						</div>
+					</div>
+					<!-- End of Col-5 -->
+				</div>
+			</div>
+			<input type="submit" class="btn btn-primary" value="Add new Sauda">
+		</form>
+	</div>
+	<!-- End of Row -->
+</body>
+</html>

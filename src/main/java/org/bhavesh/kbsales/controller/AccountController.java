@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AccountController {
 	
 	private static final String ACCOUNTLIST = "accountlist";
-	AccountService accountService;
 	public static final String ACCOUNT="account";
+	private AccountService accountService;
 	public AccountController(AccountService accountService) {
-		this.accountService=accountService;
+		this.accountService=new AccountService(accountService);
 	}
 	
 	@RequestMapping("/accounts/search/")

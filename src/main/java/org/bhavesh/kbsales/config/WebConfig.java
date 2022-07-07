@@ -18,13 +18,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
 	@Autowired
-	AccountService accountService;
-	AccountMapper accountMapper;
+	private AccountService accountService;
+	private AccountMapper accountMapper;
 	Logger logger;
 	
 	public WebConfig(AccountService accountService,AccountMapper accountMapper)
 	{
-		this.accountService=accountService;
+		this.accountService=new AccountService(accountService);
 		this.accountMapper=accountMapper;
 		logger=LoggerFactory.getLogger(WebConfig.class);
 	}

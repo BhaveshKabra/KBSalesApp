@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Show All Accounts</title>
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="/webjars/popper.js/2.0.2/umd/popper.min.js"></script>
+<style type="text/css">
+body {
+	padding-top: 55px;
+}
+
+#content {
+	margin: 5px;
+}
+</style>
+</head>
+
+
+<body>
+	<div th:replace="fragments/navbar :: NavbarThymleaf"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10" id="content">
+				<table
+					class="table table-dark table-striped table-bordered .table-hover">
+					<caption>View all Account Details</caption>
+					<thead>
+						<tr>
+							<th scope="row">Name</th>
+							<th scope="row">City</th>
+							<th scope="row">FSSAI</th>
+							<th scope="row">GSTNO</th>
+						</tr>
+					</thead>
+					<tr th:each="account, iStat:  ${accountlist}">
+						<td><a th:href="@{'/accounts/'+${account.name}} "> <span
+								th:text="${account.name}"></span>
+						</a></td>
+						<td th:text="${account.city}" />
+						<td th:text="${account.fssai}" />
+						<td th:text="${account.gstno}" />
+					</tr>
+				</table>
+				<span th:text="${lastpage}"></span>
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link" th:if="${pageno!=1}" th:href="'/accounts/search/'+${pageno-1}">Previous</a></li>
+						<li class="page-item"><a class="page-link" th:if="${((pageno)<lastpage) && (pageno>0)}" th:href="'/accounts/search/'+${pageno+1}"><span th:text=${pageno+1}></span></a></li>
+						<li class="page-item"><a class="page-link" th:if="${((pageno+1)<lastpage)&& (pageno>0)}" th:href="'/accounts/search/'+${pageno+2}"><span th:text=${pageno+2}></span></a></li>
+						<li class="page-item"><a class="page-link" th:if="${((pageno+2)<lastpage) && (pageno>0)}" th:href="'/accounts/search/'+${pageno+3}"><span th:text=${pageno+3}></span></a></li>
+						<li class="page-item"><a class="page-link" th:if="${((pageno)<lastpage) && (pageno>0)}" th:href="'/accounts/search/'+${pageno+1}">Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

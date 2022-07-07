@@ -9,13 +9,13 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class StringToAccountConverter implements Converter<String, AccountPOJO> {
+public class StringToAccountConverter implements Converter<String, AccountPOJO> {
 
 	AccountService accountService;
 	AccountMapper accountMapper;
 	Logger logger;
 	public StringToAccountConverter(AccountService accountService,AccountMapper accountMapper) {
-		this.accountService=accountService;
+		this.accountService=new AccountService(accountService);
 		this.accountMapper=accountMapper;
 		this.logger=LoggerFactory.getLogger(StringToAccountConverter.class);
 	}
