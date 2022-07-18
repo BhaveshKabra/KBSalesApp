@@ -1,10 +1,16 @@
 package org.bhavesh.kbsales.repository;
 
+import java.util.List;
+
 import org.bhavesh.kbsales.bean.User;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface UserRepository extends CrudRepository<User, String> {
-	/*
+/*
 	@Query(value="select u from User u left join fetch u.authorities where u.name=:name")
 	User findByUsername(@Param("name")String name);
 	

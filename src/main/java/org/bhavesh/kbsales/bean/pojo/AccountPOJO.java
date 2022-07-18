@@ -30,13 +30,4 @@ public class AccountPOJO {
 	private Integer fssai;
 	@Email
 	private String email;
-	public AccountPOJO(AccountPOJO accountPOJO)
-	{
-		this.city=accountPOJO.getCity();
-		this.name=accountPOJO.getName();
-		this.fssai=accountPOJO.getFssai();
-		this.gstno=accountPOJO.getGstno();
-		this.id=accountPOJO.getId();
-		this.name=accountPOJO.getName();
-	}
 }

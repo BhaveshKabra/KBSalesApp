@@ -25,12 +25,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User implements UserDetails ,Serializable
 {
-	public User(String username, String position, String password,
+	public User(String username, String password,
 			LocalDateTime createdDate, LocalDateTime modifiedDate, Collection<Authorities> authorities,
 			boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
 		super();
 		this.username = username;
-		this.position = position;
 		this.password = password;
 		this.createdDate = createdDate.plusSeconds(0);
 		this.modifiedDate = modifiedDate.plusHours(0);
@@ -41,13 +40,26 @@ public class User implements UserDetails ,Serializable
 		this.credentialsNonExpired = credentialsNonExpired;
 		this.enabled = enabled;
 	}
+	public User(String username, String password,
+			Collection<Authorities> authorities) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.createdDate = LocalDateTime.now();
+		this.modifiedDate = LocalDateTime.now();
+		this.authorities=new ArrayList<>(10);
+		this.authorities.addAll(authorities);
+		this.accountNonExpired = true;
+		this.accountNonLocked = true;
+		this.credentialsNonExpired = true;
+		this.enabled = true;
+	}
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5097532230081943722L;
 	@Id
 	private String username;
-	private String position;
 	@NotNull
 	@Length(min = 5,max=15)
 	private String password;
@@ -70,12 +82,6 @@ public class User implements UserDetails ,Serializable
 	}
 	public void setUsername(String username) {
 		this.username = username;
-	}
-	public String getPosition() {
-		return position;
-	}
-	public void setPosition(String position) {
-		this.position = position;
 	}
 	public String getPassword() {
 		return password;
@@ -134,7 +140,6 @@ public class User implements UserDetails ,Serializable
 	public User(User user) {
 		this.username=user.getUsername();
 		this.password=user.getPassword();
-		this.position=user.getPosition();
 		this.accountNonExpired=user.isAccountNonExpired();
 		this.accountNonLocked=user.isAccountNonLocked();
 		this.authorities=new ArrayList<>(10);
@@ -146,8 +151,7 @@ public class User implements UserDetails ,Serializable
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(accountNonExpired, accountNonLocked, authorities, createdDate, credentialsNonExpired,
-				enabled, modifiedDate, password, position, username);
+		return Objects.hash(username);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -158,10 +162,6 @@ public class User implements UserDetails ,Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return accountNonExpired == other.accountNonExpired && accountNonLocked == other.accountNonLocked
-				&& Objects.equals(authorities, other.authorities) && Objects.equals(createdDate, other.createdDate)
-				&& credentialsNonExpired == other.credentialsNonExpired && enabled == other.enabled
-				&& Objects.equals(modifiedDate, other.modifiedDate) && Objects.equals(password, other.password)
-				&& Objects.equals(position, other.position) && Objects.equals(username, other.username);
+		return Objects.equals(username, other.username);
 	}
 }

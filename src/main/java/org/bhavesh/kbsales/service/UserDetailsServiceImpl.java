@@ -1,8 +1,8 @@
 package org.bhavesh.kbsales.service;
-/*
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.bhavesh.kbsales.bean.Authorities;
@@ -21,10 +21,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-*/
-public class UserDetailsServiceImpl //implements UserDetailsService 
+public class UserDetailsServiceImpl implements UserDetailsService 
 {
-	/*
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -37,13 +36,13 @@ public class UserDetailsServiceImpl //implements UserDetailsService
 	public UserDetails loadUserByUsername(String username)
 	{
 		logger.debug("Username provided is {}",username);
-		User user= userRepository.findByUsername(username);
-		if(user==null)
+		Optional<User> user= userRepository.findById(username);
+		if(user.isEmpty())
 		{
 			logger.debug("User is null");
 			throw new UsernameNotFoundException("Username or password is incorrect");
 		}
-		return user;
+		return user.get();
 	}
 	
 	public Set<String> getAllAuthorities()
@@ -54,27 +53,28 @@ public class UserDetailsServiceImpl //implements UserDetailsService
 		return hashset;
 	}
 	
-	public void save(String username,String password,String authority,String position)
+	public void save(String username,String password,String authority)
 	{
-		User user=new User(username,position,new BCryptPasswordEncoder(8).encode(password));
+		Authorities authorities=new Authorities(authority);
+		List<Authorities> authortity =new ArrayList<>();
+		authortity.add(authorities);
+		User user=new User(username,new BCryptPasswordEncoder(8).encode(password),authortity);
+		authorities.setUser(user);
+		authRepository.save(authorities);
 		userRepository.save(user);
 		logger.debug(user.getUsername());
-		Authorities authorities=new Authorities(user,authority);
-		authRepository.save(authorities);	
+
 	}
-	
-	public void update(String password) 
-	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		userRepository.update(currentPrincipalName, new BCryptPasswordEncoder().encode(password));
-	}
-	
 	public void update(String username,String password) 
 	{
-		
 		logger.debug("Update passoword for {}",username);
-		userRepository.update(username,new BCryptPasswordEncoder().encode(password));
+		Optional<User> optuser=userRepository.findById(username);
+		if(optuser.isPresent())
+		{
+		User user=optuser.get();
+		user.setPassword(new BCryptPasswordEncoder().encode(password));
+		userRepository.save(user);
+		}
 	}
 	
 	public List<String> getAllUsername()
@@ -87,5 +87,4 @@ public class UserDetailsServiceImpl //implements UserDetailsService
 		}
 		return usernames;
 	}
-	*/
 }

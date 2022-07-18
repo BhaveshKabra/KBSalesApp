@@ -5,19 +5,21 @@ import org.bhavesh.kbsales.mapper.AccountMapper;
 import org.bhavesh.kbsales.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
 public class StringToAccountConverter implements Converter<String, AccountPOJO> {
-
+	@Autowired
 	AccountService accountService;
+	@Autowired
 	AccountMapper accountMapper;
-	Logger logger;
+	Logger logger=LoggerFactory.getLogger(StringToAccountConverter.class);
+	
 	public StringToAccountConverter(AccountService accountService,AccountMapper accountMapper) {
-		this.accountService=new AccountService(accountService);
+		this.accountService=accountService;
 		this.accountMapper=accountMapper;
-		this.logger=LoggerFactory.getLogger(StringToAccountConverter.class);
 	}
 
 	@Override

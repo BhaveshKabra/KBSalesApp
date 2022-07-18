@@ -12,6 +12,7 @@ import org.bhavesh.kbsales.service.AccountService;
 import org.bhavesh.kbsales.service.SaudaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,13 +36,15 @@ public class SaudaController {
 	private static final String ACCOUNTLISTATTRIBUTE="AccountsNames";
 	private static final String ERRORATTRIBUTE="error";
 	
-	private final SaudaService saudaService;
-	private final AccountService accountService;
+	@Autowired
+	private SaudaService saudaService;
+	@Autowired
+	private AccountService accountService;
 	Logger logger;
 	
 	public SaudaController(final SaudaService saudaService,final AccountService accountService) {
-		this.saudaService=new SaudaService(saudaService);
-		this.accountService=new AccountService(accountService);
+		this.saudaService=saudaService;
+		this.accountService=accountService;
 		this.logger=LoggerFactory.getLogger(SaudaController.class);
 	}
 	

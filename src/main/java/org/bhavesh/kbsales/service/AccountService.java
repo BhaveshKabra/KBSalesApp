@@ -8,6 +8,7 @@ import org.bhavesh.kbsales.bean.Account;
 import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
 import org.bhavesh.kbsales.mapper.AccountMapper;
 import org.bhavesh.kbsales.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -15,22 +16,13 @@ import org.springframework.stereotype.Service;
 import lombok.NoArgsConstructor;
 
 @Service
-@NoArgsConstructor
 public class AccountService{
 	
+	@Autowired
 	private AccountRepository accountrepo;
+	@Autowired
 	private AccountMapper mapper;
-	public AccountService(AccountRepository accountrepo,AccountMapper mapper)
-	{
-		this.accountrepo=accountrepo;
-		this.mapper=mapper;
-	}
 	
-	public AccountService(AccountService accountService)
-	{
-		this.accountrepo=accountService.accountrepo;
-		this.mapper=accountService.mapper;
-	}
 	private int pagesize = 20;
 	public AccountPOJO getAccount(String accountname)
 	{

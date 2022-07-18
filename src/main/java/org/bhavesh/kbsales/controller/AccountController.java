@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
 import org.bhavesh.kbsales.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +20,8 @@ public class AccountController {
 	
 	private static final String ACCOUNTLIST = "accountlist";
 	public static final String ACCOUNT="account";
+	@Autowired
 	private AccountService accountService;
-	public AccountController(AccountService accountService) {
-		this.accountService=new AccountService(accountService);
-	}
 	
 	@RequestMapping("/accounts/search/")
 	public String getAllAccounts(Model model)

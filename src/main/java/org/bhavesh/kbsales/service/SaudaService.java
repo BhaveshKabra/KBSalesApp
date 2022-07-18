@@ -11,26 +11,16 @@ import org.bhavesh.kbsales.bean.pojo.AccountPOJO;
 import org.bhavesh.kbsales.bean.pojo.SaudaPOJO;
 import org.bhavesh.kbsales.mapper.SaudaMapper;
 import org.bhavesh.kbsales.repository.SaudaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.NoArgsConstructor;
-
 @Service
-@NoArgsConstructor
 public class SaudaService{
 
+	@Autowired
 	SaudaRepository saudarepo;
+	@Autowired
 	SaudaMapper mapper;
-	public SaudaService(SaudaRepository saudarepo,SaudaMapper mapper)
-	{
-		this.saudarepo=saudarepo;
-		this.mapper=mapper;
-	}
-	public SaudaService(SaudaService saudaService)
-	{
-		this.saudarepo=saudaService.saudarepo;
-		this.mapper=saudaService.mapper;
-	}
 	public SaudaPOJO getSaudabyid(Long saudaid)
 	{
 		Optional<Sauda> optSauda=saudarepo.findById(saudaid);
